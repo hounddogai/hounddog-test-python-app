@@ -9,4 +9,5 @@ dependencies = [
     "google-genai>=1.21.0",
     "nicegui>=2.20.0",
     "openai>=1.88.0",
+    "tinydb>=4.8.2",
 ]
