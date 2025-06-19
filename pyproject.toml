@@ -1,0 +1,12 @@
+[project]
+name = "hounddog-test-python-app"
+version = "0.1.0"
+description = "HoundDog.ai Test Python Application"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "anthropic>=0.54.0",
+    "google-genai>=1.21.0",
+    "nicegui>=2.20.0",
+    "openai>=1.88.0",
+]
