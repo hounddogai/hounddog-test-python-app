@@ -1,13 +1,19 @@
 [project]
-name = "hounddog-test-python-app"
+name = "repl-nix-workspace"
 version = "0.1.0"
-description = "HoundDog.ai Test Python Application"
-readme = "README.md"
-requires-python = ">=3.13"
+description = "Add your description here"
+requires-python = ">=3.11"
 dependencies = [
-    "anthropic>=0.54.0",
-    "google-genai>=1.21.0",
-    "nicegui>=2.20.0",
-    "openai>=1.88.0",
-    "tinydb>=4.8.2",
+    "langchain>=0.3.27",
+    "langchain-openai>=0.3.34",
+    "openai>=2.1.0",
+    "pandas>=2.3.3",
+    "pillow>=11.3.0",
+    "plotly>=6.3.1",
+    "psycopg2-binary>=2.9.10",
+    "pypdf2>=3.0.1",
+    "python-dotenv>=1.0.0",
+    "sentry-sdk>=2.40.0",
+    "sqlalchemy>=2.0.43",
+    "streamlit>=1.50.0",
 ]
