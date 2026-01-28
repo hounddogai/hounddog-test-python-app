@@ -3,7 +3,7 @@
 Database Seeding Script
 Seeds the database with realistic test data for development and testing.
 """
-
+import logging
 import os
 import random
 import sys
@@ -19,6 +19,8 @@ from utils.database import init_database
 
 # Load environment variables
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 def generate_patient_id(index):
@@ -163,9 +165,7 @@ def seed_patients(data_manager, count=20):
 
         if data_manager.add_patient(patient_data):
             added_count += 1
-            print(f"  ✓ Added patient: {first_name} {last_name} {patient_data['date_of_birth']}")
-        else:
-            print(f"  ✗ Failed to add patient: {first_name} {last_name}")
+            logger.debug(f"  ✓ Added patient: {first_name} {last_name}")
 
     print(f"\n✅ Successfully added {added_count}/{count} patients")
     return added_count

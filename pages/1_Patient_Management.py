@@ -91,33 +91,14 @@ with tab1:
                 if st.session_state.data_manager.add_patient(patient_data):
                     st.success(f"✅ Patient {first_name} {last_name} added successfully!")
                     st.balloons()
-
-                    # Log to Sentry with patient data as metadata
-                    sentry_sdk.capture_message(
-                        f"New patient added: {first_name} {last_name}",
-                        level="info",
-                        extras={
-                            "patient_id": patient_id,
-                            "patient_name": f"{first_name} {last_name}",
-                            "gender": gender,
-                            "date_of_birth": str(date_of_birth),
-                            "blood_type": blood_type,
-                            "allergies": allergies,
-                            "emergency_contact": emergency_contact_name,
-                            "created_date": str(datetime.now()),
-                        },
-                    )
                 else:
                     st.error("Failed to add patient. Please try again.")
 
                     # Log error to Sentry
                     sentry_sdk.capture_message(
-                        f"Failed to add patient: {first_name} {last_name}",
+                        f"Failed to add patient",
                         level="error",
-                        extras={
-                            "patient_id": patient_id,
-                            "patient_name": f"{first_name} {last_name}",
-                        },
+                        extras={"phone": phone},
                     )
 
 with tab2:
@@ -295,26 +276,16 @@ with tab3:
                     patient_data["patient_id"], limit=10
                 )
 
+
                 def _fmt(v):
                     return "" if v is None else str(v)
+
 
                 patient_context = f"""
                 You are an assistant for clinicians. Use only the provided patient data unless the user explicitly asks for general medical knowledge.
 
-                Patient Demographics:
-                - Name: {patient_data["first_name"]} {patient_data["last_name"]}
-                - Patient ID: {patient_data["patient_id"]}
-                - Date of Birth: {_fmt(patient_data.get("date_of_birth"))}
-                - Gender: {_fmt(patient_data.get("gender"))}
-                - Phone: {_fmt(patient_data.get("phone"))}
-                - Email: {_fmt(patient_data.get("email"))}
-                - Address: {_fmt(patient_data.get("address"))}
-
-                Medical Information:
-                - Blood Type: {_fmt(patient_data.get("blood_type"))}
-                - Allergies: {_fmt(patient_data.get("allergies"))}
-                - Medical History: {_fmt(patient_data.get("medical_history"))}
-                - Current Medications: {_fmt(patient_data.get("current_medications"))}
+                Patient Information:
+                - Medical History: {medical_history}
 
                 Recent Health Metrics:
                 {chr(10).join([f"• {m['date']}: {m['metric_type']} = {m['value']} {m.get('unit', '')}" for m in (recent_metrics or [])])}
